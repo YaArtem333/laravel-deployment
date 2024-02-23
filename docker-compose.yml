@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - db
+    command: ["/usr/local/bin/init.sh"]
+    networks: 
+      - laravel
+
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - ./src:/var/www
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+    networks: 
+      - laravel
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel
+
+  db-slave:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_replica
+    ports:
+      - "3307:3306"
+    depends_on:
+      - db
+    networks:
+      - laravel
+  
+networks:
+  laravel: 
+    driver: bridge
+
