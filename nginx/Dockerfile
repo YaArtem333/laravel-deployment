@@ -3,7 +3,6 @@ FROM nginx:alpine
 # Удаление конфигурации по умолчанию
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Копирование конфигурации Nginx
 COPY nginx.conf /etc/nginx/conf.d
 
 EXPOSE 80

@@ -46,7 +46,7 @@ return [
         'mysql' => [
             'read' => [
                 'host' => [
-                    env('WRITER_DB_HOST', '127.0.0.1'),
+                    env('WRITER_DB_HOST', 'db'),
                 ],
                 'port' => env('PORT', '3306'),
                 'database' => env('DB_DATABASE', 'laravel'),
@@ -55,7 +55,7 @@ return [
             ],
             'write'=>[
                 'host' => [
-                    env('WRITER_DB_HOST', '127.0.0.1'),
+                    env('WRITER_DB_HOST', 'db'),
                 ],
                 'port' => env('DB_PORT', '3306'),
                 'database' => env('DB_DATABASE', 'laravel'),

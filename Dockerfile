@@ -21,9 +21,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 
-# Копирование приложения в контейнер
 WORKDIR /var/www
 
+# Копирование приложений в контейнер
 COPY ./src /var/www
 COPY ./init.sh /usr/local/bin/init.sh
 

@@ -30,6 +30,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: laravel
+    command: --server-id=1
     ports:
       - "3306:3306"
     networks:
@@ -40,6 +41,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: laravel_replica
+    command: --server-id=2
     ports:
       - "3307:3306"
     depends_on:

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Ожидание запуска MySQL
+# Ожидание запуска MySQL и запуск миграций
 until php /var/www/artisan migrate:fresh --force; do
   echo "Waiting for database connection..."
   sleep 5
 done
 
-# Запуск миграций и заполнение базы данных
+# Заполнение таблиц
 php /var/www/artisan db:seed --force
 
 echo "Application initialized."
