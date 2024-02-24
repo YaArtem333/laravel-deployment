@@ -28,7 +28,7 @@ COPY ./src /var/www
 COPY ./init.sh /usr/local/bin/init.sh
 
 # Установка зависимостей PHP
-RUN composer install --no-interaction
+RUN composer install 
 
 # Установка зависимостей JS
 RUN npm install
