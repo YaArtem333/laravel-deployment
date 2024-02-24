@@ -1,6 +1,7 @@
 # Руководство по развёртыванию веб-приложения php
 
-### Ссылка на тестовое задание: https://bitbucket.org/EquipGroupRu/junior-devops-spetsialist/src/master/
+### Ссылка на тестовое задание: 
+https://bitbucket.org/EquipGroupRu/junior-devops-spetsialist/src/master/
 
 ## Предварительные требования
 
