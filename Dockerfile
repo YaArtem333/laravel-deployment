@@ -1,6 +1,7 @@
+# Use an official PHP image
 FROM php:8.0-fpm
 
-# Установка зависимостей
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -8,28 +9,31 @@ RUN apt-get update && apt-get install -y \
     zip \
     curl \
     unzip \
-    git
+    git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_mysql
 
-# Установка расширений PHP
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install gd pdo pdo_mysql
-
-# Установка Composer
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Установка Node.js и NPM
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
 WORKDIR /var/www
 
-# Копирование приложений в контейнер
+# Copy application source
 COPY ./src /var/www
 COPY ./init.sh /usr/local/bin/init.sh
 
-# Установка зависимостей PHP
-RUN composer install 
-
-# Установка зависимостей JS
-RUN npm install
+# Change ownership before installing dependencies
 RUN chown -R www-data:www-data /var/www
+
+# Switch to www-data user to install dependencies
+USER www-data
+
+# Install PHP and JS dependencies
+RUN composer install
+RUN npm install
+
+# Switch back to root user if necessary for further commands
+USER root
