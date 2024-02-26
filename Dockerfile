@@ -28,8 +28,11 @@ COPY ./src /var/www
 COPY ./init.sh /usr/local/bin/init.sh
 
 # Установка зависимостей PHP
+RUN cd /var/www
 RUN composer install 
 
 # Установка зависимостей JS
 RUN npm install
 RUN chown -R www-data:www-data /var/www
+
+RUN composer install
